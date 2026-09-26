@@ -16,6 +16,11 @@ uploadForm.addEventListener("submit", async (e) => {
   try {
     const res = await fetch("/api/upload", { method: "POST", body: formData });
     const data = await res.json();
+    const errors = data.results.filter((r) => r.error);
+    if (errors.length) {
+      uploadStatus.textContent = "Error: " + errors.map((e) => `${e.file_name} — ${e.error}`).join("; ");
+      return;
+    }
     uploadStatus.textContent = `Processed ${data.results.length} file(s). Reloading...`;
     setTimeout(() => window.location.reload(), 600);
   } catch (err) {
