@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import shutil
 import uuid
@@ -7,6 +8,9 @@ from typing import List
 from dotenv import load_dotenv
 
 load_dotenv()
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("invoice-sync-agent")
 
 from fastapi import FastAPI, UploadFile, File, Depends, HTTPException, Request
 from fastapi.responses import HTMLResponse
@@ -105,6 +109,7 @@ async def upload_invoices(
         try:
             extracted = extraction.process_file(saved_path)
         except Exception as exc:  # noqa: BLE001
+            logger.exception("Extraction failed for %s", f.filename)
             results.append({"file_name": f.filename, "error": str(exc)})
             continue
 
