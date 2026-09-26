@@ -58,6 +58,9 @@ tbody.addEventListener("click", async (e) => {
     const data = await res.json();
     row.querySelector(".status-cell").textContent = `${data.status}${data.message ? " — " + data.message : ""}`;
     row.className = `status-${data.status}`;
+    if (data.status === "synced") {
+      setTimeout(() => window.location.reload(), 900);
+    }
   }
 });
 
