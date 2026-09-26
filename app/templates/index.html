@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Invoice → Accounting Sync Agent</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>Invoice → Accounting Sync Agent</h1>
+    <span class="connector-badge">Active target: <strong>{{ active_connector }}</strong></span>
+  </header>
+
+  {% if demo_mode %}
+  <div class="demo-banner">
+    Public demo mode — synced invoices write to the in-app ledger below, not a real
+    accounting system. Limited to {{ demo_upload_limit }} uploads/hour per visitor.
+  </div>
+  {% endif %}
+
+  <section class="upload-box">
+    <form id="upload-form">
+      <input type="file" id="file-input" multiple accept=".pdf,.png,.jpg,.jpeg">
+      <button type="submit">Upload & Extract</button>
+    </form>
+    <div id="upload-status"></div>
+  </section>
+
+  <section class="actions-bar">
+    <button id="sync-all-btn">Sync all approved invoices</button>
+    <span id="sync-all-status"></span>
+  </section>
+
+  <table id="invoice-table">
+    <thead>
+      <tr>
+        <th>File</th>
+        <th>Vendor</th>
+        <th>Invoice #</th>
+        <th>Date</th>
+        <th>Currency</th>
+        <th>Total</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="invoice-tbody">
+      {% for inv in invoices %}
+      <tr data-id="{{ inv.id }}" class="{{ 'low-confidence' if inv.is_low_confidence else '' }} status-{{ inv.status }}">
+        <td>{{ inv.file_name }}</td>
+        <td contenteditable="true" data-field="vendor_name">{{ inv.vendor_name or '' }}</td>
+        <td contenteditable="true" data-field="invoice_number">{{ inv.invoice_number or '' }}</td>
+        <td contenteditable="true" data-field="invoice_date">{{ inv.invoice_date or '' }}</td>
+        <td contenteditable="true" data-field="currency">{{ inv.currency or '' }}</td>
+        <td contenteditable="true" data-field="total_amount">{{ inv.total_amount or '' }}</td>
+        <td class="status-cell">{{ inv.status }}{% if inv.sync_error %} — {{ inv.sync_error }}{% endif %}</td>
+        <td class="row-actions">
+          <button class="save-btn">Save</button>
+          <button class="approve-btn">Approve</button>
+          <button class="sync-btn">Sync</button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if demo_mode %}
+  <section class="ledger-section">
+    <h2>Synced to accounting system (demo ledger)</h2>
+    <table id="ledger-table">
+      <thead>
+        <tr>
+          <th>Vendor</th>
+          <th>Invoice #</th>
+          <th>Date</th>
+          <th>Currency</th>
+          <th>Total</th>
+          <th>Synced at</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in ledger %}
+        <tr>
+          <td>{{ row.vendor_name or '' }}</td>
+          <td>{{ row.invoice_number or '' }}</td>
+          <td>{{ row.invoice_date or '' }}</td>
+          <td>{{ row.currency or '' }}</td>
+          <td>{{ row.total_amount or '' }}</td>
+          <td>{{ row.synced_at }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" class="empty-row">No invoices synced yet — approve and sync one above.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  {% endif %}
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

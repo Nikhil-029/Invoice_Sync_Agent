@@ -1,0 +1,94 @@
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f6f7f9;
+  color: #1a1a1a;
+  margin: 0;
+  padding: 0 2rem 3rem;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #e2e4e8;
+  margin-bottom: 1.5rem;
+}
+h1 { font-size: 1.4rem; margin: 0; }
+.connector-badge {
+  background: #eef2ff;
+  color: #3730a3;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+.upload-box {
+  background: white;
+  border: 1px dashed #c7cad1;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+.actions-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+button {
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+button:hover { background: #4338ca; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+th, td {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #eee;
+  font-size: 0.85rem;
+}
+th { background: #fafafa; font-weight: 600; }
+tr.low-confidence td { background: #fff7ed; }
+tr.status-synced td.status-cell { color: #15803d; font-weight: 600; }
+tr.status-failed td.status-cell, tr.status-duplicate td.status-cell { color: #b91c1c; font-weight: 600; }
+tr.status-approved td.status-cell { color: #1d4ed8; font-weight: 600; }
+.row-actions button { margin-right: 0.3rem; font-size: 0.75rem; padding: 0.35rem 0.6rem; }
+#upload-status, #sync-all-status { font-size: 0.85rem; margin-top: 0.5rem; color: #555; }
+td[contenteditable="true"]:focus { outline: 2px solid #a5b4fc; background: #f5f5ff; }
+
+.demo-banner {
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  color: #3730a3;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+.ledger-section { margin-top: 2rem; }
+.ledger-section h2 { font-size: 1rem; margin-bottom: 0.75rem; }
+#ledger-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+#ledger-table th, #ledger-table td {
+  text-align: left; padding: 0.6rem 0.75rem; border-bottom: 1px solid #eee; font-size: 0.85rem;
+}
+#ledger-table th { background: #fafafa; font-weight: 600; }
+.empty-row { color: #888; text-align: center; padding: 1rem; }

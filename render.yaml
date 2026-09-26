@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: invoice-sync-agent-demo
+    runtime: docker
+    plan: free
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false          # set this manually in the Render dashboard — never commit it
+      - key: GROQ_MODEL
+        value: llama-3.1-70b-versatile
+      - key: DEMO_MODE
+        value: "true"
+      - key: DEMO_MAX_UPLOADS_PER_HOUR
+        value: "8"
+    disk:
+      name: invoice-sync-data
+      mountPath: /app/data
+      sizeGB: 1
