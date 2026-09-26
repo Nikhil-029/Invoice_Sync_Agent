@@ -12,7 +12,7 @@ services:
         value: "true"
       - key: DEMO_MAX_UPLOADS_PER_HOUR
         value: "8"
-    disk:
-      name: invoice-sync-data
-      mountPath: /app/data
-      sizeGB: 1
+    # disk:
+    #   name: invoice-sync-data
+    #   mountPath: /app/data
+    #   sizeGB: 1
