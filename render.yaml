@@ -7,7 +7,7 @@ services:
       - key: GROQ_API_KEY
         sync: false          # set this manually in the Render dashboard — never commit it
       - key: GROQ_MODEL
-        value: llama-3.1-70b-versatile
+        value: llama-3.3-70b-versatile
       - key: DEMO_MODE
         value: "true"
       - key: DEMO_MAX_UPLOADS_PER_HOUR
